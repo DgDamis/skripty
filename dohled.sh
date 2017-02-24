@@ -26,4 +26,4 @@ echo "<br>" >> /home/student/skripty/index.html
 echo "Využitá RAM: "$um" MB" >> /home/student/skripty/index.html
 echo "<br>" >> /home/student/skripty/index.html
 echo "volná RAM: "$fm" MB" >> /home/student/skripty/index.html
-echo "<br><hr><br>" >> /home/student/skripty/index.html
+echo "<br><hr>" >> /home/student/skripty/index.html
