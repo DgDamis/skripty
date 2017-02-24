@@ -18,4 +18,6 @@ echo "Využité místo na disku: "$du >> /home/student/skripty/index.html
 echo "Volné místo na disku: "$da >> /home/student/skripty/index.html
 echo "Využitá RAM: "$um" MB" >> /home/student/skripty/index.html
 echo "volná RAM: "$fm" MB" >> /home/student/skripty/index.html
-echo "<br><br>"
+echo "<br><br>" >> /home/student/skripty/index.html
+
+
