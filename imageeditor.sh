@@ -40,11 +40,20 @@ echo "(4) Otočení obrázku"
 echo "(5)-------KONEC-------"
 read volba
 
-switch($volba) {
-	case 1: imageConversion
-	case 2:	qualityChange
-	case 3: sizeChange
-	case 4: imageRotation ($zdroj, $cil)
-	case 5: exit 
-}
-
+if (volba > 0 && volba < 6); then  
+	case "$volba" in
+	 	1) imageConversion
+			;;
+	 	2) qualityChange
+			;;
+	 	3) sizeChange
+			;;
+	 	4) imageRotation ($zdroj, $cil)
+			;;
+	 	5) exit 
+			;;
+	 	*) echo "Nezadal jste správný výběr."
+	esac
+else 
+echo "Nezadal jste správný výběr."
+fi
