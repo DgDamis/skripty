@@ -1,4 +1,14 @@
 #!/bin/bash
+function basicInformations {
+echo "Vítejte ve skriptu pro hromadnou úpravu fotek."
+echo "Zadejte prosím zdrojový adresář."
+read zdroj
+return "$zdroj"
+echo "Zadejte prosím cílový adresář."
+read cil
+return "$cil"
+}
+
 function imageRotation {
 MIN=0
 MAX=360
@@ -12,18 +22,16 @@ fi
 exit
 }
 
+function imageConversion {
+}
 
-volba=0
+function qualityChange {
+}
 
-while  [ $volba != 5]
-do
-echo "Vítejte ve skriptu pro hromadnou úpravu fotek."
-echo "Zadejte prosím zdrojový adresář."
-read zdroj
-
-echo "Zadejte prosím cílový adresář."
-read cil
-
+function sizeChange {
+}
+ 
+basicInformations
 echo "    Zadejte volbu"
 echo "(1) Konverze formátu"
 echo "(2) Změna kvality"
@@ -32,10 +40,11 @@ echo "(4) Otočení obrázku"
 echo "(5)-------KONEC-------"
 read volba
 
-#switch
+switch($volba) {
+	case 1: imageConversion
+	case 2:	qualityChange
+	case 3: sizeChange
+	case 4: imageRotation
+	case 5: exit 
+}
 
-done
-
-
-
-read stop
