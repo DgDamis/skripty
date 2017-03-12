@@ -44,7 +44,7 @@ switch($volba) {
 	case 1: imageConversion
 	case 2:	qualityChange
 	case 3: sizeChange
-	case 4: imageRotation
+	case 4: imageRotation ($zdroj, $cil)
 	case 5: exit 
 }
 
