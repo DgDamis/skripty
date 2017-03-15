@@ -6,14 +6,14 @@ echo "		(1) jeden obrázek	"
 echo "		(2) celý adresář 	"
 read choice
 # Rozhodnutí o použití skriptu pouze pro jeden soubor
-if ($choice == 1); then
+if ( $choice == 1 ); then
 	echo "Zadejte prosím adresu obrázku včetně přípony."
 	read cesta
 	return $cesta
 	taskCount=`1`
 	return $taskCount
 # Rozhodnutí o použití adresáře
-else if ($choice == 2); then
+else if ( $choice == 2 ); then
 	echo "Zadejte prosím cestu k adresáři."
 	read cesta
 	return $cesta
@@ -29,8 +29,8 @@ MIN=0
 MAX=360
 echo "Zadejte počet stupňů (0-360) o kolik chcete obrázek otočit."
 read pocetStupnu
-if ($pocetStupnu > MIN $$ $pocetStupnu < MAX) ; then
-	if ( $2 == 2); then
+if ( $pocetStupnu > $MIN && $pocetStupnu < $MAX ) ; then
+	if ( $2 == 2 ); then
 		cd $1
 		# $1 odkazuje na první parametr, který byl funkci dán 
 		for file in $1; do
@@ -54,7 +54,7 @@ MAX=100
 echo "Na kolik procent z původní kvality chcete změnit kvalitu obrázku?"
 echo "Odpovězte ve formátu celého čísla v intervalu (0;100)"
 read kvalita
-if ( $kvalita > MIN &&  $kvalita < MAX); then
+if ( $kvalita > $MIN &&  $kvalita < $MAX ); then
 	if ( $2 == 2 ); then
 		cd $1
 		for file in $1; do
@@ -84,7 +84,7 @@ echo "(5) Efekty	"
 echo "(6)-------KONEC-------"
 read volba
 
-if (volba > 0 && volba < 6); then  
+if ( $volba > 0 && $volba < 6 ); then  
 	case "$volba" in
 	 	1) imageConversion
 			;;
