@@ -5,21 +5,22 @@ echo "Co všechno chcete upravit?"
 echo "		(1) jeden obrázek	"
 echo "		(2) celý adresář 	"
 read choice
+# Rozhodnutí o použití skriptu pouze pro jeden soubor
 if ($choice == 1); then
-#vyvolání funkce jenom pro jeden obrázek
-echo "Zadejte prosím adresu obrázku včetně přípony."
-read cesta
-return $cesta
-taskCount=`1`
-return $taskCount
+	echo "Zadejte prosím adresu obrázku včetně přípony."
+	read cesta
+	return $cesta
+	taskCount=`1`
+	return $taskCount
+# Rozhodnutí o použití adresáře
 else if ($choice == 2); then
-echo "Zadejte prosím cestu k adresáři."
-read cesta
-return $cesta
-taskCount=`2`
-return $taskCount
-else "Zadal jste špatnou volbu."
-fi
+	echo "Zadejte prosím cestu k adresáři."
+	read cesta
+	return $cesta
+	taskCount=`2`
+	return $taskCount
+else
+	echo "Zadal jste špatnou volbu."
 fi
 }
 
@@ -28,25 +29,23 @@ MIN=0
 MAX=360
 echo "Zadejte počet stupňů (0-360) o kolik chcete obrázek otočit."
 read pocetStupnu
-if ( $2 == 2); then
-cd $1
-#zeptat se na $1
-for file in $1; do
-#proměnná, zkratka pro name without ending (zkratku bez koncovky)
-nameWend=`$file | awk (".") '{printf $1}'`
-echo $nameWend
 if ($pocetStupnu > MIN $$ $pocetStupnu < MAX) ; then
-convert file - rotate $pocetStupnu $nameWend.jpg
+	if ( $2 == 2); then
+		cd $1
+		# $1 odkazuje na první parametr, který byl funkci dán 
+		for file in $1; do
+		convert $file - rotate $pocetStupnu $file
+		done
+	else
+		convert $1 -rotate $pocetStupnu $1
+	fi
 else 
-echo "Nezadal jste správný počet stupňů."
-fi
-done
-else
-convert $1 -rotate $pocetStupnu $1
+	echo "Nezadal jste správný počet stupňů."
 fi
 }
 
 function imageConversion {
+nameWend=`$file | awk (".") '{printf $1}'`
 }
 #Musím při změně kvality i měnit formát z .png na .jpg?
 function qualityChange {
@@ -65,7 +64,7 @@ if ( $kvalita > MIN &&  $kvalita < MAX); then
 	fi
 	done
 else
-echo "Nezadal jste správnou kvalitu."
+	echo "Nezadal jste správnou kvalitu."
 fi
 }
 
