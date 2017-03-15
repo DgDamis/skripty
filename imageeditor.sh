@@ -10,24 +10,17 @@ if ($choice == 1); then
 echo "Zadejte prosím adresu obrázku včetně přípony."
 read cesta
 return $cesta
-callSingle
+taskCount=`1`
+return $taskCount
 else if ($choice == 2); then
 echo "Zadejte prosím cestu k adresáři."
 read cesta
 return $cesta
+taskCount=`2`
+return $taskCount
 else "Zadal jste špatnou volbu."
 fi
 fi
-}
-#funkce callDirect = celý adresář
-function callDirect {
-taskCount=`2`
-return $taskCount
-}
-
-function callSingle {
-taskCount=`1`
-return $taskCount
 }
 
 function imageRotation {
@@ -35,10 +28,10 @@ MIN=0
 MAX=360
 echo "Zadejte počet stupňů (0-360) o kolik chcete obrázek otočit."
 read pocetStupnu
-if ( $taskCount == 2); then
-cd $cesta
-#zeptat se na $3
-for file in $3; do
+if ( $2 == 2); then
+cd $1
+#zeptat se na $1
+for file in $1; do
 #proměnná, zkratka pro name without ending (zkratku bez koncovky)
 nameWend=`$file | awk (".") '{printf $1}'`
 echo $nameWend
@@ -49,14 +42,31 @@ echo "Nezadal jste správný počet stupňů."
 fi
 done
 else
-convert $cesta -rotate $pocetStupnu $cesta
+convert $1 -rotate $pocetStupnu $1
 fi
 }
 
 function imageConversion {
 }
-
+#Musím při změně kvality i měnit formát z .png na .jpg?
 function qualityChange {
+MIN=0
+MAX=100
+echo "Na kolik procent z původní kvality chcete změnit kvalitu obrázku?"
+echo "Odpovězte ve formátu celého čísla v intervalu (0;100)"
+read kvalita
+if ( $kvalita > MIN &&  $kvalita < MAX); then
+	if ( $2 == 2 ); then
+		cd $1
+		for file in $1; do
+		convert $file -quality $kvalita $file
+	else
+	convert $1 -quality $kvalita $1
+	fi
+	done
+else
+echo "Nezadal jste správnou kvalitu."
+fi
 }
 
 function sizeChange {
@@ -79,11 +89,11 @@ if (volba > 0 && volba < 6); then
 	case "$volba" in
 	 	1) imageConversion
 			;;
-	 	2) qualityChange
+	 	2) qualityChange ( $cesta, $taskCount )
 			;;
-	 	3) sizeChange
+	 	3) sizeChange 
 			;;
-	 	4) imageRotation ( $cesta )
+	 	4) imageRotation ( $cesta, $taskCount )
 			;;
 	 	5) efects
 			;;
