@@ -22,6 +22,8 @@ else if ( $choice == 2 ); then
 else
 	echo "Zadal jste špatnou volbu."
 fi
+#post výběru který uživatele vyhodí z funkce do mainu, kde díky while neskončí skript
+return $choice
 }
 
 function imageRotation {
@@ -45,9 +47,35 @@ fi
 }
 
 function imageConversion {
-nameWend=`$file | awk (".") '{printf $1}'`
+echo "Ze kterého formátu a na který formát chcete obrázek převést?"
+echo " 			(1) PNG -------> JPG "
+echo "			(2) JPG -------> PNG "
+read volbaKonverze
+if ( $volbaKonverze > 0 && $volbaKonverze < 3 ); then
+	if ( $2 == 2 ); then
+		if ( $volbaKonverze == 1); then
+			for file in $1; do
+				nameWend=`$file | awk (".") '{printf $1}'`				
+				convert $file $nameWend.jpg
+			done
+		else
+			for file in $1; do
+				nameWend=`$file | awk (".") '{printf $1}'`
+				convert $file $nameWend.png
+			done
+		fi
+	else
+		if ( $volbaKonverze == 1 ); then
+			singFilewEnd=`$1 | awk (".") '{printf $1}'`
+			convert $1 $singFilewEnd.jpg
+		else
+			convert $1 $singFilewEnd.png
+		fi
+	fi
+else
+	echo "Nemůže zvolit možnost, která není v nabídce."
+fi
 }
-#Musím při změně kvality i měnit formát z .png na .jpg?
 function qualityChange {
 MIN=0
 MAX=100
@@ -131,7 +159,7 @@ read volba
 
 if ( $volba > 0 && $volba < 6 ); then  
 	case "$volba" in
-	 	1) imageConversion
+	 	1) imageConversion ( $cesta, $taskCount )
 			;;
 	 	2) qualityChange ( $cesta, $taskCount )
 			;;
@@ -139,7 +167,7 @@ if ( $volba > 0 && $volba < 6 ); then
 			;;
 	 	4) imageRotation ( $cesta, $taskCount )
 			;;
-	 	5) efects
+	 	5) efects ( $cesta, $taskCount )
 			;;
 		6) exit 
 			;;
