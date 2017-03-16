@@ -58,17 +58,33 @@ if ( $kvalita > $MIN &&  $kvalita < $MAX ); then
 	if ( $2 == 2 ); then
 		cd $1
 		for file in $1; do
-		convert $file -quality $kvalita $file
+			convert $file -quality $kvalita $file
+		done	
 	else
 	convert $1 -quality $kvalita $1
 	fi
-	done
 else
 	echo "Nezadal jste správnou kvalitu."
 fi
 }
 
 function sizeChange {
+echo "Zadejte výšku obrázku, na kterou má být obrázek transformován."
+read vyska
+echo "Zadejte šířku obrázku, na kterou má být obrázek transformován."
+read width
+celyPomer=`echo $width"x"$vyska`
+if ( ($width > 0 && $width < 3841 ) && ( $vyska > 0 && $vyska < 2161 ) ); then
+	if ( $2 == 2 ); then
+		for file in $1; do
+			convert $file -resize $celyPomer $file
+		done
+	else
+		convert $file -resize $celyPomer $file
+	fi
+else
+	echo "Nezadal jste správné údaje!"
+fi
 }
 
 function effects {
@@ -90,7 +106,7 @@ if ( $volba > 0 && $volba < 6 ); then
 			;;
 	 	2) qualityChange ( $cesta, $taskCount )
 			;;
-	 	3) sizeChange 
+	 	3) sizeChange ( $cesta, $taskCount )
 			;;
 	 	4) imageRotation ( $cesta, $taskCount )
 			;;
