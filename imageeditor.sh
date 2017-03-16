@@ -44,6 +44,8 @@ if ( $pocetStupnu > $MIN && $pocetStupnu < $MAX ) ; then
 else 
 	echo "Nezadal jste správný počet stupňů."
 fi
+#post výběru který uživatele vyhodí z funkce do mainu, kde díky while neskončí skript
+return $pocetStupnu
 }
 
 function imageConversion {
@@ -75,6 +77,8 @@ if ( $volbaKonverze > 0 && $volbaKonverze < 3 ); then
 else
 	echo "Nemůže zvolit možnost, která není v nabídce."
 fi
+#post výběru který uživatele vyhodí z funkce do mainu, kde díky while neskončí skript
+return $volbaKonverze
 }
 function qualityChange {
 MIN=0
@@ -94,6 +98,8 @@ if ( $kvalita > $MIN &&  $kvalita < $MAX ); then
 else
 	echo "Nezadal jste správnou kvalitu."
 fi
+#post výběru který uživatele vyhodí z funkce do mainu, kde díky while neskončí skript
+return $kvalita
 }
 
 function sizeChange {
@@ -113,6 +119,9 @@ if ( ($width > 0 && $width < 3841 ) && ( $vyska > 0 && $vyska < 2161 ) ); then
 else
 	echo "Nezadal jste správné údaje!"
 fi
+#post výběru který uživatele vyhodí z funkce do mainu, kde díky while neskončí skript
+return $width
+return $vyska
 }
 #Zeptat se na nutnost použití cd $1 v cyklu for
 function effects {
@@ -142,11 +151,15 @@ if ( $volbaEfektu > 0 && $volbaEfektu < 3 ); then
 	else
 		echo "Nemůžete zadat mínusovou hrubost."
 	fi
+	#post výběru který uživatele vyhodí z funkce do mainu, kde díky while neskončí skript
+	return $hrubost
 else
 	echo "Nemůžete použít jiný efekt, než který je v nabídce."
 fi
+#post výběru který uživatele vyhodí z funkce do mainu, kde díky while neskončí skript
+return $volbaEfektu
 }
- 
+while :; do 
 basicInformations
 echo "    Zadejte volbu"
 echo "(1) Konverze formátu"
@@ -176,3 +189,4 @@ if ( $volba > 0 && $volba < 6 ); then
 else 
 echo "Nezadal jste správný výběr."
 fi
+done
