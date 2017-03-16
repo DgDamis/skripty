@@ -86,8 +86,37 @@ else
 	echo "Nezadal jste správné údaje!"
 fi
 }
-
+#Zeptat se na nutnost použití cd $1 v cyklu for
 function effects {
+echo "Který efekt chcete použít?"
+echo "		(1) Charcoal		"
+echo " 		(2) Implode			"
+read volbaEfektu
+echo "Zadejte, s jakou hrubostí chcete efekt použít."
+read hrubost
+if ( $volbaEfektu > 0 && $volbaEfektu < 3 ); then
+	if ( $hrubost > 0 ); then
+		if ( $2 == 2); then
+			for file in $1; do
+				if ( $volbaEfektu == 1 ); then
+					convert $file -charcoal $hrubost $file
+				else
+					convert $file -implode $hrubost $file
+				fi
+			done
+		else
+			if ( $volbaEfektu == 1 ); then
+				convert $1 -charcoal $hrubost $1
+			else
+				convert $1 -implode $hrubost $1
+			fi
+		fi
+	else
+		echo "Nemůžete zadat mínusovou hrubost."
+	fi
+else
+	echo "Nemůžete použít jiný efekt, než který je v nabídce."
+fi
 }
  
 basicInformations
