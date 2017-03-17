@@ -6,7 +6,7 @@ echo "		(1) jeden obrázek	"
 echo "		(2) celý adresář 	"
 read choice
 # Rozhodnutí o použizí skriptu pro jeden soubor nebo pro celý adresář
-if ( $choice > 0 && $choice < 3 ); then
+if ( $choice -gt 0 && $choice -lt 3 ); then
 	if ( $choice == 1 ); then
 		echo "Zadejte prosím adresu obrázku včetně přípony."
 		read cesta
@@ -32,7 +32,7 @@ MIN=0
 MAX=360
 echo "Zadejte počet stupňů (0-360) o kolik chcete obrázek otočit."
 read pocetStupnu
-if ( $pocetStupnu > $MIN && $pocetStupnu < $MAX ) ; then
+if ( $pocetStupnu -gt $MIN && $pocetStupnu -lt $MAX ) ; then
 	if ( $2 == 2 ); then
 		cd $1
 		# $1 odkazuje na první parametr, který byl funkci dán 
@@ -54,7 +54,7 @@ echo "Ze kterého formátu a na který formát chcete obrázek převést?"
 echo " 			(1) PNG -------> JPG "
 echo "			(2) JPG -------> PNG "
 read volbaKonverze
-if ( $volbaKonverze > 0 && $volbaKonverze < 3 ); then
+if ( $volbaKonverze -gt 0 && $volbaKonverze -lt 3 ); then
 	if ( $2 == 2 ); then
 		if ( $volbaKonverze == 1); then
 			for file in $1; do
@@ -88,7 +88,7 @@ MAX=100
 echo "Na kolik procent z původní kvality chcete změnit kvalitu obrázku?"
 echo "Odpovězte ve formátu celého čísla v intervalu (0;100)"
 read kvalita
-if ( $kvalita > $MIN &&  $kvalita < $MAX ); then
+if ( $kvalita -gt $MIN &&  $kvalita -lt $MAX ); then
 	if ( $2 == 2 ); then
 		cd $1
 		for file in $1; do
@@ -110,7 +110,7 @@ read vyska
 echo "Zadejte šířku obrázku, na kterou má být obrázek transformován."
 read width
 celyPomer=`echo $width"x"$vyska`
-if ( ($width > 0 && $width < 3841 ) && ( $vyska > 0 && $vyska < 2161 ) ); then
+if ( ($width -gt 0 && $width -lt 3841 ) && ( $vyska -gt 0 && $vyska -lt 2161 ) ); then
 	if ( $2 == 2 ); then
 		cd $1
 		for file in $1; do
@@ -133,8 +133,8 @@ echo " 		(2) Implode			"
 read volbaEfektu
 echo "Zadejte, s jakou hrubostí chcete efekt použít."
 read hrubost
-if ( $volbaEfektu > 0 && $volbaEfektu < 3 ); then
-	if ( $hrubost > 0 ); then
+if ( $volbaEfektu -gt 0 && $volbaEfektu -lt 3 ); then
+	if ( $hrubost -gt 0 ); then
 		if ( $2 == 2); then
 			cd $1
 			for file in $1; do
@@ -173,7 +173,7 @@ echo "(5) Efekty	"
 echo "(6)-------KONEC-------"
 read volba
 
-if ( $volba > 0 && $volba < 6 ); then  
+if ( $volba -gt 0 && $volba -lt 6 ); then  
 	case "$volba" in
 	 	1) imageConversion $cesta $taskCount
 			;;
