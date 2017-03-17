@@ -1,28 +1,29 @@
 #!/bin/bash
 function basicInformations {
 echo "Vítejte ve skriptu pro hromadnou úpravu fotek."
-echo "Co všechno chcete upravit?"
+echo "Co všechno chcete upravit?	"
 echo "		(1) jeden obrázek	"
 echo "		(2) celý adresář 	"
 read choice
-# Rozhodnutí o použití skriptu pouze pro jeden soubor
-if ( $choice == 1 ); then
-	echo "Zadejte prosím adresu obrázku včetně přípony."
-	read cesta
-	return $cesta
-	taskCount=`1`
-	return $taskCount
-# Rozhodnutí o použití adresáře
-else if ( $choice == 2 ); then
-	echo "Zadejte prosím cestu k adresáři."
-	read cesta
-	return $cesta
-	taskCount=`2`
-	return $taskCount
+# Rozhodnutí o použizí skriptu pro jeden soubor nebo pro celý adresář
+if ( $choice > 0 && $choice < 3 ); then
+	if ( $choice == 1 ); then
+		echo "Zadejte prosím adresu obrázku včetně přípony."
+		read cesta
+		return $cesta
+		taskCount=`1`
+		return $taskCount
+	else
+		echo "Zadejte prosím cestu k adresáři."
+		read cesta
+		return $cesta
+		taskCount=`2`
+		return $taskCount
+	fi	
 else
 	echo "Zadal jste špatnou volbu."
 fi
-#post výběru který uživatele vyhodí z funkce do mainu, kde díky while neskončí skript
+# post výběru který uživatele vyhodí z funkce do mainu, kde díky while neskončí skript
 return $choice
 }
 
@@ -111,6 +112,7 @@ read width
 celyPomer=`echo $width"x"$vyska`
 if ( ($width > 0 && $width < 3841 ) && ( $vyska > 0 && $vyska < 2161 ) ); then
 	if ( $2 == 2 ); then
+		cd $1
 		for file in $1; do
 			convert $file -resize $celyPomer $file
 		done
@@ -124,7 +126,6 @@ fi
 return $width
 return $vyska
 }
-#Zeptat se na nutnost použití cd $1 v cyklu for
 function effects {
 echo "Který efekt chcete použít?"
 echo "		(1) Charcoal		"
@@ -135,6 +136,7 @@ read hrubost
 if ( $volbaEfektu > 0 && $volbaEfektu < 3 ); then
 	if ( $hrubost > 0 ); then
 		if ( $2 == 2); then
+			cd $1
 			for file in $1; do
 				if ( $volbaEfektu == 1 ); then
 					convert $file -charcoal $hrubost $file
@@ -173,15 +175,15 @@ read volba
 
 if ( $volba > 0 && $volba < 6 ); then  
 	case "$volba" in
-	 	1) imageConversion ( $cesta, $taskCount )
+	 	1) imageConversion $cesta $taskCount
 			;;
-	 	2) qualityChange ( $cesta, $taskCount )
+	 	2) qualityChange $cesta $taskCount
 			;;
-	 	3) sizeChange ( $cesta, $taskCount )
+	 	3) sizeChange $cesta $taskCount
 			;;
-	 	4) imageRotation ( $cesta, $taskCount )
+	 	4) imageRotation $cesta $taskCount
 			;;
-	 	5) efects ( $cesta, $taskCount )
+	 	5) efects $cesta $taskCount
 			;;
 		6) exit 
 			;;
