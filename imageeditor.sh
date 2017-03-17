@@ -80,6 +80,7 @@ fi
 #post výběru který uživatele vyhodí z funkce do mainu, kde díky while neskončí skript
 return $volbaKonverze
 }
+
 function qualityChange {
 MIN=0
 MAX=100
