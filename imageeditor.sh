@@ -2,21 +2,22 @@
 function basicInformations {
 echo "Vítejte ve skriptu pro hromadnou úpravu fotek."
 echo "Co všechno chcete upravit?	"
-echo "		(1) jeden obrázek	"
-echo "		(2) celý adresář 	"
+echo "(1) jeden obrázek	"
+echo "(2) celý adresář 	"
+echo "----------------------------------"
 read choice
 # Rozhodnutí o použizí skriptu pro jeden soubor nebo pro celý adresář
 if [[ $choice -ge '1' && $choice -le '2' ]]; then
 	if [ $choice == 1 ]; then
 		echo "Zadejte prosím adresu obrázku včetně přípony."
 		read cesta
-		return $cesta
-		taskCount=`1`
+		return "$cesta"
+		taskCount=1
 		return $taskCount
 	else
 		echo "Zadejte prosím cestu k adresáři."
 		read cesta
-		return $cesta
+		return "$cesta"
 		taskCount=`2`
 		return $taskCount
 	fi	
@@ -57,6 +58,7 @@ read volbaKonverze
 if [ $volbaKonverze -gt 0 && $volbaKonverze -lt 3 ]; then
 	if [ $2 == 2 ]; then
 		if [ $volbaKonverze == 1 ]; then
+			cd $1			
 			for file in $1; do
 				nameWend=`$file | awk (".") '{printf $1}'`				
 				convert $file $nameWend.jpg
@@ -175,15 +177,15 @@ read volba
 
 if [ $volba -gt 0 && $volba -lt 6 ]; then  
 	case "$volba" in
-	 	1) imageConversion $cesta $taskCount
+	 	1) imageConversion "$cesta" $taskCount
 			;;
-	 	2) qualityChange $cesta $taskCount
+	 	2) qualityChange "$cesta" $taskCount
 			;;
-	 	3) sizeChange $cesta $taskCount
+	 	3) sizeChange "$cesta" $taskCount
 			;;
-	 	4) imageRotation $cesta $taskCount
+	 	4) imageRotation "$cesta" $taskCount
 			;;
-	 	5) efects $cesta $taskCount
+	 	5) efects "$cesta" $taskCount
 			;;
 		6) exit 
 			;;
