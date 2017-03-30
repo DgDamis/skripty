@@ -12,13 +12,15 @@ if [[ $choice -ge '1' && $choice -le '2' ]]; then
 		echo "Zadejte prosím adresu obrázku včetně přípony."
 		read cesta
 		return "$cesta"
-		taskCount="1"
+		taskCount=1
+		echo $taskCount
 		return $taskCount
 	else
 		echo "Zadejte prosím cestu k adresáři."
 		read cesta
 		return "$cesta"
-		taskCount="2"
+		taskCount=2
+		echo $taskCount
 		return $taskCount
 	fi	
 else
