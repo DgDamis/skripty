@@ -11,17 +11,19 @@ if [[ $choice -ge '1' && $choice -le '2' ]]; then
 	if [ $choice -eq 1 ]; then
 		echo "Zadejte prosím adresu obrázku včetně přípony."
 		read cesta
-		return "$cesta"
+		
 		taskCount=1
 		echo $taskCount
 		return $taskCount
+		return "$cesta"
 	else
 		echo "Zadejte prosím cestu k adresáři."
 		read cesta
-		return "$cesta"
+
 		taskCount=2
 		echo $taskCount
 		return $taskCount
+		return "$cesta"
 	fi	
 else
 	echo "Zadal jste špatnou volbu."
@@ -61,20 +63,23 @@ read volbaKonverze
 if [[ $volbaKonverze -gt '0' && $volbaKonverze -lt '3' ]]; then
 	if [ $2 -eq '2' ]; then
 		if [ $volbaKonverze -eq '1' ]; then
+			echo $1			
 			cd $1			
 			for file in $1; do
-				nameWend=`$file | awk (".") '{printf $1}'`				
+				nameWend=`$file | awk -F "." '{print $1}'`				
 				convert $file $nameWend.jpg
 			done
 		else
+			echo $1
+			cd $1			
 			for file in $1; do
-				nameWend=`$file | awk (".") '{printf $1}'`
+				nameWend=`$file | awk -F "." '{print $1}'`
 				convert $file $nameWend.png
 			done
 		fi
 	else
 		if [ $volbaKonverze -eq '1' ]; then
-			singFilewEnd=`$1 | awk (".") '{printf $1}'`
+			singFilewEnd=`$1 | awk -F "." '{print $1}'`
 			convert $1 $singFilewEnd.jpg
 		else
 			convert $1 $singFilewEnd.png
@@ -173,7 +178,6 @@ echo "    Zadejte volbu"
 echo "(1) Konverze formátu"
 echo "(2) Změna kvality"
 echo "(3) Změna rozměru"
-echo $taskCount
 echo "(4) Otočení obrázku"
 echo "(5) Efekty	"
 echo "(6)-------KONEC-------"
