@@ -42,7 +42,7 @@ if [[ $pocetStupnu -gt $MIN && $pocetStupnu -lt $MAX ]] ; then
 	if [ $2 -eq '2' ]; then
 		cd $1
 		# $1 odkazuje na první parametr, který byl funkci dán 
-		for file in $1; do
+		for file in *.*; do
 		convert $file - rotate $pocetStupnu $file
 		done
 	else
@@ -101,7 +101,7 @@ read kvalita
 if [[ $kvalita -gt $MIN &&  $kvalita -lt $MAX ]]; then
 	if [ $2 -eq '2' ]; then
 		cd $1
-		for file in $1; do
+		for file in *.*; do
 			convert $file -quality $kvalita $file
 		done	
 	else
@@ -120,10 +120,10 @@ read vyska
 echo "Zadejte šířku obrázku, na kterou má být obrázek transformován."
 read width
 celyPomer=`echo $width"x"$vyska`
-if [ [ $width -gt '0' && $width -lt '3841' ] && [ $vyska -gt '0' && $vyska -lt '2161' ] ]; then
+if [[ $width -gt '0' && $width -lt '3841' && $vyska -gt '0' && $vyska -lt '2161' ]]; then
 	if [ $2 -eq '2' ]; then
 		cd $1
-		for file in $1; do
+		for file in *.*; do
 			convert $file -resize $celyPomer $file
 		done
 	else
@@ -144,10 +144,10 @@ read volbaEfektu
 echo "Zadejte, s jakou hrubostí chcete efekt použít."
 read hrubost
 if [ $volbaEfektu -gt '0' && $volbaEfektu -lt '3' ]; then
-	if [ $hrubost -gt 0 ]; then
-		if [ $2 -eq 2 ]; then
+	if [ $hrubost -gt '0' ]; then
+		if [ $2 -eq '2' ]; then
 			cd $1
-			for file in $1; do
+			for file in *.*; do
 				if [ $volbaEfektu -eq '1' ]; then
 					convert $file -charcoal $hrubost $file
 				else
