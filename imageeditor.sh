@@ -35,7 +35,6 @@ return $choice
 function imageRotation {
 MIN=0
 MAX=360
-echo $2
 echo "Zadejte počet stupňů (0-360) o kolik chcete obrázek otočit."
 read pocetStupnu
 if [[ $pocetStupnu -gt $MIN && $pocetStupnu -lt $MAX ]] ; then
@@ -43,7 +42,7 @@ if [[ $pocetStupnu -gt $MIN && $pocetStupnu -lt $MAX ]] ; then
 		cd $1
 		# $1 odkazuje na první parametr, který byl funkci dán 
 		for file in *.*; do
-		convert $file - rotate $pocetStupnu $file
+		convert $file -rotate $pocetStupnu $file
 		done
 	else
 		convert $1 -rotate $pocetStupnu $1
@@ -143,19 +142,19 @@ echo " 		(2) Implode			"
 read volbaEfektu
 echo "Zadejte, s jakou hrubostí chcete efekt použít."
 read hrubost
-if [ $volbaEfektu -gt '0' && $volbaEfektu -lt '3' ]; then
+if [[ $volbaEfektu -gt '0' && $volbaEfektu -lt '3' ]]; then
 	if [ $hrubost -gt '0' ]; then
 		if [ $2 -eq '2' ]; then
 			cd $1
 			for file in *.*; do
-				if [ $volbaEfektu -eq '1' ]; then
+				if [[ $volbaEfektu -eq '1' ]]; then
 					convert $file -charcoal $hrubost $file
 				else
 					convert $file -implode $hrubost $file
 				fi
 			done
 		else
-			if [ $volbaEfektu -eq '1' ]; then
+			if [[ $volbaEfektu -eq '1' ]]; then
 				convert $1 -charcoal $hrubost $1
 			else
 				convert $1 -implode $hrubost $1
@@ -198,7 +197,7 @@ if [[ $volba -gt '0' && $volba -lt '7' ]]; then
 		imageRotation "$cesta" "$taskCount"
 			;;
 	 	5) 
-		efects "$cesta" "$taskCount"
+		effects "$cesta" "$taskCount"
 			;;
 		6) exit 
 			;;
