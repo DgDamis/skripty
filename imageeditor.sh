@@ -66,14 +66,14 @@ if [[ $volbaKonverze -gt '0' && $volbaKonverze -lt '3' ]]; then
 			echo $1			
 			cd $1			
 			for file in *.*; do
-				nameWend=`$file | awk -F "." '{print $1}'`				
+				nameWend=`echo $file | awk -F "." '{print $1}'`				
 				convert $file $nameWend".jpg"
 			done
 		else
 			echo $1
 			cd $1			
 			for file in *.*; do
-				nameWend=`$file | awk -F "." '{print $1}'`
+				nameWend=`echo $file | awk -F "." '{print $1}'`
 				convert $file $nameWend".png"
 			done
 		fi
