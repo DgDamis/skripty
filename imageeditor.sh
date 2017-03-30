@@ -67,22 +67,22 @@ if [[ $volbaKonverze -gt '0' && $volbaKonverze -lt '3' ]]; then
 			cd $1			
 			for file in $1; do
 				nameWend=`$file | awk -F "." '{print $1}'`				
-				convert $file $nameWend.jpg
+				convert $file $nameWend".jpg"
 			done
 		else
 			echo $1
 			cd $1			
 			for file in $1; do
 				nameWend=`$file | awk -F "." '{print $1}'`
-				convert $file $nameWend.png
+				convert $file $nameWend".png"
 			done
 		fi
 	else
 		if [ $volbaKonverze -eq '1' ]; then
 			singFilewEnd=`$1 | awk -F "." '{print $1}'`
-			convert $1 $singFilewEnd.jpg
+			convert $1 $singFilewEnd".jpg"
 		else
-			convert $1 $singFilewEnd.png
+			convert $1 $singFilewEnd".png"
 		fi
 	fi
 else
