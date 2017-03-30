@@ -31,6 +31,7 @@ return $choice
 function imageRotation {
 MIN=0
 MAX=360
+echo "tady se nachazi cesta-->"$1"<---"
 echo "Zadejte počet stupňů (0-360) o kolik chcete obrázek otočit."
 read pocetStupnu
 if [[ $pocetStupnu -gt $MIN && $pocetStupnu -lt $MAX ]] ; then
@@ -169,6 +170,9 @@ basicInformations
 echo "    Zadejte volbu"
 echo "(1) Konverze formátu"
 echo "(2) Změna kvality"
+
+echo $cesta
+
 echo "(3) Změna rozměru"
 echo "(4) Otočení obrázku"
 echo "(5) Efekty	"
@@ -177,15 +181,15 @@ read volba
 
 if [[ $volba -gt '0' && $volba -lt '7' ]]; then  
 	case "$volba" in
-	 	1) imageConversion "$cesta" $taskCount
+	 	1) imageConversion "$cesta" "$taskCount"
 			;;
-	 	2) qualityChange "$cesta" $taskCount
+	 	2) qualityChange "$cesta" "$taskCount"
 			;;
-	 	3) sizeChange "$cesta" $taskCount
+	 	3) sizeChange "$cesta" "$taskCount"
 			;;
-	 	4) imageRotation "$cesta" $taskCount
+	 	4) imageRotation "$cesta" "$taskCount"
 			;;
-	 	5) efects "$cesta" $taskCount
+	 	5) efects "$cesta" "$taskCount"
 			;;
 		6) exit 
 			;;
